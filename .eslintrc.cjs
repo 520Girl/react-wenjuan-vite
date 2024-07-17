@@ -8,10 +8,10 @@ module.exports = {
     'plugin:prettier/recommended',
     "./.eslintrc-auto-import.json",
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs','mock_server'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
-  rules: {
+  rules: { //运行any 属性
     "@typescript-eslint/no-explicit-any": "off",
     'react-refresh/only-export-components': [
       'warn',
@@ -19,4 +19,5 @@ module.exports = {
     ],
     "@typescript-eslint/no-unused-vars": "off",
   },
+  
 }
