@@ -1,6 +1,7 @@
 import type { FC } from "react"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { message } from "antd"
+import useLoadQuestionListData from "@/hooks/useLoadQuestionListData"
 import ListSearch from "@/components/ListSearch"
 import styles from "./common.module.scss"
 
@@ -16,29 +17,12 @@ interface DataType {
 	createdAt: string
 }
 
-const rawQuestionList = [
-	{
-		_id: "q2",
-		title: "问卷2",
-		isPublished: false,
-		isStar: false,
-		answerCount: 20,
-		createdAt: "2022-01-02",
-	},
-	{
-		_id: "q1",
-		title: "问卷1",
-		isPublished: true,
-		isStar: false,
-		answerCount: 20,
-		createdAt: "2022-01-02",
-	},
-]
-
 const Trash: FC = () => {
 	useTitle("我的-回收站")
 
-	const [questionList, setQuestionList] = useState(rawQuestionList)
+	const { data, loading, error } = useLoadQuestionListData({ isDeleted: true })
+	const { list = [], total = 0 } = data || {}
+
 	const [checkedList, setCheckedList] = useState<string[]>([])
 
 	const tableColumns = [
@@ -88,7 +72,7 @@ const Trash: FC = () => {
 				</ASpace>
 			</div>
 			<ATable
-				dataSource={questionList}
+				dataSource={list}
 				columns={tableColumns}
 				pagination={false}
 				rowKey={Q => Q._id}
@@ -114,8 +98,13 @@ const Trash: FC = () => {
 				</div>
 			</div>
 			<div className={styles.content}>
-				{questionList.length === 0 && <AEmpty description="暂无数据" />}
-				{questionList.length > 0 && tableElem}
+				{loading && (
+					<div style={{ textAlign: "center" }}>
+						<ASpin />
+					</div>
+				)}
+				{!loading && list.length === 0 && <AEmpty description="暂无数据" />}
+				{!loading && list.length > 0 && tableElem}
 			</div>
 		</>
 	)

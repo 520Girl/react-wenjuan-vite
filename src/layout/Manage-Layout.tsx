@@ -1,16 +1,51 @@
 import React from "react"
 import { Outlet } from "react-router-dom"
 import { PlusOutlined, BarsOutlined, StarOutlined, DeleteOutlined } from "@ant-design/icons"
+import { message } from "antd"
+import { createQuestions } from "@/services/question"
 import styles from "./ManageLayout.module.scss"
 
 const ManageLayout: React.FC = () => {
 	const nav = useNavigate()
 	const { pathname } = useLocation()
+	// const [loading, setLoading] = useState(false)
+
+	// //创建问卷
+	// const handleCreate = async () => {
+	// 	setLoading(true)
+	// 	const data = await createQuestions()
+	// 	const {id} = data || {}
+	// 	if(id){
+	// 		nav(`/question/edit/${id}`)
+	// 		message.success('创建成功')
+	// 	}
+	// 	setLoading(false)
+	// }
+	const {
+		loading,
+		// error,
+		run: handleCreate,
+	} = useRequest(createQuestions, {
+		manual: true,
+		onSuccess: data => {
+			const { id } = data || {}
+			if (id) {
+				nav(`/question/edit/${id}`)
+				message.success("创建成功")
+			}
+		},
+	})
 	return (
 		<div className={styles.container}>
 			<div className={styles.left}>
 				<ASpace direction="vertical">
-					<AButton type="primary" size="large" icon={<PlusOutlined />}>
+					<AButton
+						onClick={handleCreate}
+						loading={loading}
+						type="primary"
+						size="large"
+						icon={<PlusOutlined />}
+					>
 						创建问卷
 					</AButton>
 					<ADivider />

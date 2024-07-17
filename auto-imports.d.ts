@@ -17,6 +17,7 @@ declare global {
   const ARadio: typeof import('antd')['Radio']
   const AResult: typeof import('antd')['Result']
   const ASpace: typeof import('antd')['Space']
+  const ASpin: typeof import('antd')['Spin']
   const ATable: typeof import('antd')['Table']
   const ATag: typeof import('antd')['Tag']
   const ATypography: typeof import('antd')['Typography']

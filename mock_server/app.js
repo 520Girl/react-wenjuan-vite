@@ -6,10 +6,10 @@ const app = new Koa();
 const router = new Route();
 
 //手动延迟
-const handleTime = (fn)=>{
+const handleTime = (fn, ctx)=>{
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve(fn())
+            resolve(fn(ctx))
         }, 500)
     })
 }
@@ -18,7 +18,7 @@ mockList.forEach((item) => {
     const { url, method, response } = item
 
     router[method](url, async (ctx) => {
-        ctx.body = await handleTime(response)
+        ctx.body = await handleTime(response, ctx)
     })
 })
 

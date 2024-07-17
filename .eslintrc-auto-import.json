@@ -128,6 +128,7 @@
     "AInput": true,
     "AForm": true,
     "ARadio": true,
-    "ACheckbox": true
+    "ACheckbox": true,
+    "ASpin": true
   }
 }

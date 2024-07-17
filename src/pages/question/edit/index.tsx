@@ -1,16 +1,17 @@
-import React from "react"
-import { useParams } from "react-router-dom"
-import { getQuestions } from "@/services/question"
+import useLoadQuestionData from "@/hooks/useLoadQuestionData"
 
 export default function Index() {
-	const { id = "" } = useParams()
-	useEffect(() => {
-		async function fun() {
-			const data = await getQuestions(id)
-			console.log(data)
-		}
-		fun()
-	}, [id])
+	const { loading, questionData } = useLoadQuestionData()
 
-	return <div>edit{id}</div>
+	return (
+		<div>
+			{loading && <div>loading...</div>}
+			{!loading && (
+				<div>
+					<h1>Edit Question</h1>
+					<div>{JSON.stringify(questionData)}</div>
+				</div>
+			)}
+		</div>
+	)
 }
