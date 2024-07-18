@@ -28,3 +28,20 @@ export const getQuestionsList = async (opt: Partial<searchParamsType>): Promise<
 	const data = (await axios.get(url, { params: opt })) as ResDateType
 	return data
 }
+
+//修改问卷
+export const updateQuestions = async (
+	id: string,
+	opt: { [key: string]: any }
+): Promise<ResDateType> => {
+	const url = `/question/${id}`
+	const data = (await axios.patch(url, opt)) as ResDateType
+	return data
+}
+
+//复制问卷
+export const copyQuestions = async (id: string): Promise<ResDateType> => {
+	const url = `/question/duplicate/${id}`
+	const data = (await axios.post(url)) as ResDateType
+	return data
+}

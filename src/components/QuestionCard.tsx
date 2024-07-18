@@ -9,6 +9,7 @@ import {
 	StarOutlined,
 	ExclamationCircleOutlined,
 } from "@ant-design/icons"
+import { updateQuestions, copyQuestions } from "@/services/question"
 import styles from "./QuestionCard.module.scss"
 import { message } from "antd"
 
@@ -28,34 +29,57 @@ type PropsType = {
 
 // FC - functional component
 const QuestionCard: FC<PropsType> = (props: PropsType) => {
-	const {
-		_id,
-		title,
-		createdAt,
-		answerCount,
-		isPublished,
-		deleteQuestion,
-		publishQuestion,
-		isStar,
-	} = props
+	const { _id, title, createdAt, answerCount, isPublished, isStar } = props
+	//修改 标星
+	const [isStarred, setIsStarred] = useState(isStar)
+	const { loading: changeStarLoading, run: handleStar } = useRequest(
+		async () => {
+			await updateQuestions(_id, { isStar: !isStarred })
+		},
+		{
+			manual: true,
+			onSuccess: result => {
+				setIsStarred(!isStarred) //更新state
+				message.success("修改成功!")
+			},
+		}
+	)
 	const nav = useNavigate() // 路由跳转
 
-	function duplicate(id: string) {
-		message.success("复制成功!")
-		publishQuestion && publishQuestion(id)
-	}
-
-	function del(id: string) {
+	//复制
+	// function duplicate(id: string) {
+	// 	message.success("复制成功!")
+	// 	publishQuestion && publishQuestion(id)
+	// }
+	const { loading: duplicateLoading, run: duplicate } = useRequest(
+		async () => await copyQuestions(_id),
+		{
+			manual: true,
+			onSuccess: result => {
+				message.success("复制成功!")
+				nav(`/question/edit/${result.id}`)
+			},
+		}
+	)
+	//删除
+	const [isDeletedState, setIsDeletedState] = useState(false)
+	const { loading: deleteLoading, run: deleteQuestion } = useRequest(
+		async () => await updateQuestions(_id, { isDeleted: true }),
+		{
+			manual: true,
+			onSuccess: result => {
+				message.success("删除成功!")
+				setIsDeletedState(true)
+			},
+		}
+	)
+	function del() {
 		confirm({
 			title: "确认删除?",
 			icon: <ExclamationCircleOutlined />,
 			content: "你确定要删除该问卷吗？",
-			onOk: () => {
-				message.success("删除成功!")
-				return Promise.resolve()
-			},
+			onOk: deleteQuestion,
 		})
-		deleteQuestion && deleteQuestion(id)
 	}
 
 	// useEffect(() => {
@@ -85,13 +109,14 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
 		[publishedClass]: isPublished,
 	})
 
+	if (isDeletedState) return null // 已删除的问卷不显示
 	return (
 		<div className={styles.container}>
 			<div className={styles.title}>
 				<div className={styles.left}>
 					<Link to={isPublished ? `/question/stat/${_id}` : `/question/edit/${_id}`}>
 						<ASpace>
-							{isStar && <StarFilled style={{ color: "red" }} />}
+							{isStarred && <StarFilled style={{ color: "red" }} />}
 							{title}
 						</ASpace>
 					</Link>
@@ -130,21 +155,33 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
 				</div>
 				<div className={styles.right}>
 					<ASpace>
-						<AButton type="text" size="small" icon={isStar ? <StarFilled /> : <StarOutlined />}>
-							{isStar ? "取消标星" : "标星"}
+						<AButton
+							disabled={changeStarLoading}
+							onClick={handleStar}
+							type="text"
+							size="small"
+							icon={isStarred ? <StarFilled style={{ color: "red" }} /> : <StarOutlined />}
+						>
+							{isStarred ? "取消标星" : "标星"}
 						</AButton>
 						<APopconfirm
 							title="确认复制？"
-							onConfirm={() => duplicate(_id)}
+							onConfirm={() => duplicate()}
 							cancelText="取消"
 							okText="确认"
 						>
-							<AButton type="text" size="small" icon={<CopyOutlined />}>
+							<AButton disabled={duplicateLoading} type="text" size="small" icon={<CopyOutlined />}>
 								复制
 							</AButton>
 						</APopconfirm>
 
-						<AButton type="text" size="small" icon={<DeleteOutlined />} onClick={() => del(_id)}>
+						<AButton
+							disabled={deleteLoading}
+							type="text"
+							size="small"
+							icon={<DeleteOutlined />}
+							onClick={() => del()}
+						>
 							删除
 						</AButton>
 					</ASpace>
