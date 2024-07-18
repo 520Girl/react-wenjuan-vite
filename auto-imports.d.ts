@@ -13,6 +13,7 @@ declare global {
   const AInput: typeof import('antd')['Input']
   const ALayout: typeof import('antd')['Layout']
   const AModal: typeof import('antd')['Modal']
+  const APagination: typeof import('antd')['Pagination']
   const APopconfirm: typeof import('antd')['Popconfirm']
   const ARadio: typeof import('antd')['Radio']
   const AResult: typeof import('antd')['Result']

@@ -129,6 +129,7 @@
     "AForm": true,
     "ARadio": true,
     "ACheckbox": true,
-    "ASpin": true
+    "ASpin": true,
+    "APagination": true
   }
 }

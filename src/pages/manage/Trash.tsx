@@ -3,6 +3,7 @@ import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { message } from "antd"
 import useLoadQuestionListData from "@/hooks/useLoadQuestionListData"
 import ListSearch from "@/components/ListSearch"
+import ListPagination from "@/components/ListPagination"
 import styles from "./common.module.scss"
 
 const { Title } = ATypography
@@ -105,6 +106,9 @@ const Trash: FC = () => {
 				)}
 				{!loading && list.length === 0 && <AEmpty description="暂无数据" />}
 				{!loading && list.length > 0 && tableElem}
+			</div>
+			<div className={styles.footer}>
+				<ListPagination total={total} />
 			</div>
 		</>
 	)

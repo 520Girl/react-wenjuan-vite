@@ -3,7 +3,9 @@ import axios, { ResDateType } from "./axios"
 type searchParamsType = {
 	keyword: string
 	isStar: boolean
-	isDelete: boolean
+	isDeleted: boolean
+	page: number
+	pageSize: number
 }
 
 //获取单个问卷信息

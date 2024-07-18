@@ -3,8 +3,8 @@ import type { FC } from "react"
 import useLoadQuestionListData from "@/hooks/useLoadQuestionListData"
 import ListSearch from "@/components/ListSearch"
 import QuestionCard from "@/components/QuestionCard"
+import ListPagination from "@/components/ListPagination"
 import styles from "./common.module.scss"
-
 const { Title } = ATypography
 
 const Star: FC = () => {
@@ -36,7 +36,9 @@ const Star: FC = () => {
 						return <QuestionCard key={_id} {...question} />
 					})}
 			</div>
-			<div className={styles.footer}>分页</div>
+			<div className={styles.footer}>
+				<ListPagination total={total} />
+			</div>
 		</>
 	)
 }
