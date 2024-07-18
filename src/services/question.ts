@@ -45,3 +45,10 @@ export const copyQuestions = async (id: string): Promise<ResDateType> => {
 	const data = (await axios.post(url)) as ResDateType
 	return data
 }
+
+//  批量测定删除问卷
+export const deleteQuestions = async (ids: string[]): Promise<ResDateType> => {
+	const url = `/question`
+	const data = (await axios.delete(url, { data: { ids } })) as ResDateType
+	return data
+}

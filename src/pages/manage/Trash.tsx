@@ -4,6 +4,7 @@ import { message } from "antd"
 import useLoadQuestionListData from "@/hooks/useLoadQuestionListData"
 import ListSearch from "@/components/ListSearch"
 import ListPagination from "@/components/ListPagination"
+import { updateQuestions, deleteQuestions } from "@/services/question"
 import styles from "./common.module.scss"
 
 const { Title } = ATypography
@@ -21,7 +22,7 @@ interface DataType {
 const Trash: FC = () => {
 	useTitle("我的-回收站")
 
-	const { data, loading, error } = useLoadQuestionListData({ isDeleted: true })
+	const { data, loading, error, refresh } = useLoadQuestionListData({ isDeleted: true })
 	const { list = [], total = 0 } = data || {}
 
 	const [checkedList, setCheckedList] = useState<string[]>([])
@@ -50,21 +51,50 @@ const Trash: FC = () => {
 			key: "createdAt", //默认取dataIndex的值，也可以自定义
 		},
 	]
+	//彻底删除
+	const { run: deleteQuestion } = useRequest(async () => await deleteQuestions(checkedList), {
+		manual: true,
+		onSuccess: () => {
+			message.success("删除成功")
+			refresh() //重新刷新页面
+			setCheckedList([])
+		},
+		onError: () => message.error("删除失败"),
+	})
 
-	function del(_id?: string) {
+	function del() {
 		confirm({
 			title: "确认删除",
 			icon: <ExclamationCircleOutlined />,
 			content: "确认彻底删除该问卷吗？",
-			onOk: () => message.success("删除成功"),
+			onOk: deleteQuestion,
 		})
 	}
 
-	const tableElem = (
+	//恢复
+	const { run: recover } = useRequest(
+		async () => {
+			for await (const id of checkedList) {
+				await updateQuestions(id, { isDeleted: false })
+			}
+		},
+		{
+			manual: true,
+			debounceWait: 500, // 防抖
+			onSuccess: () => {
+				message.success("恢复成功")
+				refresh() //重新刷新页面
+				setCheckedList([])
+			},
+			onError: () => message.error("恢复失败"),
+		}
+	)
+
+	const TableElem = (
 		<>
 			<div style={{ marginBottom: "16px" }}>
 				<ASpace>
-					<AButton type="primary" disabled={checkedList.length === 0}>
+					<AButton onClick={recover} type="primary" disabled={checkedList.length === 0}>
 						恢复
 					</AButton>
 					<AButton danger onClick={() => del()}>
@@ -105,7 +135,7 @@ const Trash: FC = () => {
 					</div>
 				)}
 				{!loading && list.length === 0 && <AEmpty description="暂无数据" />}
-				{!loading && list.length > 0 && tableElem}
+				{list.length > 0 && TableElem}
 			</div>
 			<div className={styles.footer}>
 				<ListPagination total={total} />
