@@ -2,9 +2,13 @@ import React from "react"
 import styles from "./MainLayout.module.scss"
 import Logo from "@/components/Logo"
 import UseInfo from "@/components/UseInfo"
+import useLoadUserData from "@/hooks/useLoadUserData"
+import useNavPage from "@/hooks/useNavPage"
 const { Header, Footer, Content } = ALayout
 
 const MainLayout: React.FC = () => {
+	const { waitUserData } = useLoadUserData()
+	useNavPage(waitUserData)
 	return (
 		<ALayout>
 			<Header className={styles.header}>
@@ -17,7 +21,13 @@ const MainLayout: React.FC = () => {
 			</Header>
 			<ALayout>
 				<Content className={styles.main}>
-					<Outlet />
+					{waitUserData ? (
+						<div style={{ marginTop: "100px", textAlign: "center" }}>
+							<ASpin />
+						</div>
+					) : (
+						<Outlet />
+					)}
 				</Content>
 			</ALayout>
 			<Footer className={styles.footer}>Footer</Footer>

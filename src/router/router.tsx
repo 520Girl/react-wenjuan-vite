@@ -92,3 +92,14 @@ export const LOGIN_PATH = "/login"
 export const REGISTER_PATH = "/register"
 export const DASHBOARD_PATH = "/"
 export const MANNAGE_INDEX_PATH = "/manage/list"
+
+//判断是否是登录注册页面
+export const isLoginOrRegisterPath = (path: string) => {
+	if ([LOGIN_PATH, REGISTER_PATH].includes(path)) return true
+	return false
+}
+
+export const isNoNeedUserInfo = (path: string) => {
+	if ([LOGIN_PATH, REGISTER_PATH, DASHBOARD_PATH].includes(path)) return true
+	return false
+}
