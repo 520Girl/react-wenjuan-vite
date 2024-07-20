@@ -1,14 +1,33 @@
 import { UserAddOutlined } from "@ant-design/icons"
 import type { FC } from "react"
+import { message } from "antd"
 import { LOGIN_PATH } from "@/router/router"
+import { register } from "@/services/user"
 import styles from "@/assets/styles/Register.module.scss"
 
 const { Title } = ATypography
 
 const Register: FC = () => {
+	const nav = useNavigate()
+	//注册请求
+	const { run: handleRegister, loading } = useRequest(
+		async values => {
+			const { username, password, nickname = username } = values
+			await register({ username, password, nickname })
+		},
+		{
+			manual: true,
+			onSuccess: () => {
+				message.success("注册成功，请登录")
+				nav(LOGIN_PATH)
+			},
+		}
+	)
+
 	function onFinish(values: any) {
-		console.log("Received values of form: ", values)
+		handleRegister({ ...values })
 	}
+
 	return (
 		<div className={styles.container}>
 			<div>
@@ -64,17 +83,13 @@ const Register: FC = () => {
 					>
 						<AInput.Password placeholder="请再一次输入密码" />
 					</AForm.Item>
-					<AForm.Item
-						label="昵称"
-						name="nikename"
-						rules={[{ required: true, message: "请输入昵称" }]}
-					>
+					<AForm.Item label="昵称" name="nickname">
 						<AInput placeholder="昵称" />
 					</AForm.Item>
 
 					<AForm.Item wrapperCol={{ offset: 6, span: 14 }}>
 						<ASpace>
-							<AButton type="primary" htmlType="submit">
+							<AButton disabled={loading} type="primary" htmlType="submit">
 								注册
 							</AButton>
 							<Link to={LOGIN_PATH}> 已有账号，登录</Link>

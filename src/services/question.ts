@@ -7,7 +7,6 @@ type searchParamsType = {
 	page: number
 	pageSize: number
 }
-
 //获取单个问卷信息
 export const getQuestions = async (id: string): Promise<ResDateType> => {
 	const url = `/question/${id}`

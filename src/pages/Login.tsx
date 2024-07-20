@@ -1,7 +1,11 @@
 import React from "react"
 import type { FC } from "react"
 import { UserOutlined } from "@ant-design/icons"
-import { REGISTER_PATH } from "@/router/router"
+import { message } from "antd"
+import { DASHBOARD_PATH, REGISTER_PATH } from "@/router/router"
+import { login } from "@/services/user"
+import { TOKEN_KEY } from "@/constant"
+import { setLocation } from "@/utils"
 import styles from "@/assets/styles/Login.module.scss"
 
 const { Title } = ATypography
@@ -26,15 +30,34 @@ function getUserInfoFromStorage() {
 	}
 }
 const Login: FC = () => {
+	const nav = useNavigate()
 	// 第三方提供的hook
 	const [form] = AForm.useForm()
 	useEffect(() => {
 		const { username, password } = getUserInfoFromStorage()
 		form.setFieldsValue({ username, password })
 	})
+	//登陆接口
+	const { run: handleLogin, loading } = useRequest(
+		async (values: { username: string; password: string }) => {
+			const { username, password } = values
+			const data = await login(username, password)
+			return data
+		},
+		{
+			manual: true,
+			onSuccess: data => {
+				console.log(data)
+				message.success("登录成功")
+				setLocation(TOKEN_KEY, data.token)
+				nav(DASHBOARD_PATH)
+			},
+		}
+	)
 
 	function onFinish(values: any) {
 		const { username, password, remember } = values || {}
+		handleLogin({ username, password })
 		if (remember) {
 			rememberUser(username, password)
 		} else {
@@ -78,7 +101,7 @@ const Login: FC = () => {
 					</AForm.Item>
 					<AForm.Item wrapperCol={{ offset: 6, span: 16 }}>
 						<ASpace>
-							<AButton type="primary" htmlType="submit">
+							<AButton disabled={loading} type="primary" htmlType="submit">
 								登录
 							</AButton>
 							<Link to={REGISTER_PATH}>注册新用户</Link>
