@@ -19,7 +19,6 @@ function useLoadQuestionData() {
 	)
 
 	//useEffect 用来监听data 发生变化时
-
 	useEffect(() => {
 		if (!data) return
 

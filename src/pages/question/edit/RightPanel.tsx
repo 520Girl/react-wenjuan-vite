@@ -1,13 +1,14 @@
 import React, { FC } from "react"
 import type { TabsProps } from "antd"
 import { FileTextOutlined, SettingOutlined } from "@ant-design/icons"
+import ComponentProp from "./ComponentProp"
 
 const items: TabsProps["items"] = [
 	{
 		key: "prop",
 		label: <span>属性</span>,
 		icon: <FileTextOutlined />,
-		children: <div>属性</div>,
+		children: <ComponentProp />,
 	},
 	{
 		key: "setting",

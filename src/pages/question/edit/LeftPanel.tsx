@@ -1,13 +1,14 @@
 import React, { FC } from "react"
 import type { TabsProps } from "antd"
 import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons"
+import ComponentLib from "./ComponentLib"
 
 const items: TabsProps["items"] = [
 	{
 		key: "componentLib",
 		label: <span>组件库</span>,
 		icon: <AppstoreOutlined />,
-		children: <div>组件库</div>,
+		children: <ComponentLib />,
 	},
 	{
 		key: "layers",

@@ -3,7 +3,7 @@ import { QuestionTitleProps, QuestionTitleDefaultProps } from "./interface"
 const { Title } = ATypography
 
 const QuestionTitle: FC = (props: QuestionTitleProps) => {
-	const { text = "", level = 1, isCenter = false } = { ...QuestionTitleDefaultProps, ...props }
+	const { title = "", level = 1, isCenter = false } = { ...QuestionTitleDefaultProps, ...props }
 	//字体大小
 	const getFontSize = (level: number) => {
 		if (level === 1) return "24px"
@@ -20,7 +20,7 @@ const QuestionTitle: FC = (props: QuestionTitleProps) => {
 					fontSize: getFontSize(level),
 				}}
 			>
-				{text}
+				{title}
 			</Title>
 		</div>
 	)

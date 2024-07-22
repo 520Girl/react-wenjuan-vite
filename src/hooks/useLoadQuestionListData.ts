@@ -5,7 +5,6 @@ import {
 	LIST_PAGE_PARAM_KEY,
 	LIST_PAGE_SIZE,
 } from "@/constant"
-import { isValidElement } from "react"
 
 type OptionType = {
 	isStar: boolean
