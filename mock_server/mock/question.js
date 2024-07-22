@@ -3,7 +3,7 @@ const getQuestion = require('../data/getQuestionList')
 
 const Random = Mock.Random
 module.exports =[
-    { //获取单个问卷文件信息
+    { //获取单个问卷文 件信息
         url: '/api/question/:id',
         method: 'get',
         response: (req, res) => {
@@ -12,6 +12,28 @@ module.exports =[
                 data:{
                     id: Random.id(),
                     title: Random.ctitle(),
+                    componentList:[
+                        { //title
+                            fe_id: Random.id(),
+                            type:'questionTitle', //组件类型不能重复，前后端一致
+                            title:'标题',
+                            props:{title:'个人信息调研',level:1,isCenter:false }
+                        },
+                        { //Input
+                            fe_id: Random.id(),
+                            type: 'questionInput',
+                            title: '单行文本框',
+                            props: { title: '你的姓名',placeholder:'请输入姓名...' }
+
+                        },
+                        { //Input
+                            fe_id: Random.id(),
+                            type: 'questionInput',
+                            title: '单行文本框2',
+                            props: { title: '你的电话', placeholder: '请输入电话...' }
+
+                        },
+                    ]
                 }
                 // errno: 1,
                 // msg:'8888'

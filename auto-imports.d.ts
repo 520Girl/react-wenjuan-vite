@@ -20,6 +20,7 @@ declare global {
   const ASpace: typeof import('antd')['Space']
   const ASpin: typeof import('antd')['Spin']
   const ATable: typeof import('antd')['Table']
+  const ATabs: typeof import('antd')['Tabs']
   const ATag: typeof import('antd')['Tag']
   const ATypography: typeof import('antd')['Typography']
   const Button: typeof import('antd')['Button']

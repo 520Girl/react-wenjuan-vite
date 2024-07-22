@@ -1,6 +1,7 @@
 import type { RouteObject } from "react-router-dom"
 import MainLayout from "@/layout/Main-Layout"
 import ManageLayout from "@/layout/Manage-Layout"
+import QuestionLayout from "@/layout/Question-Layout"
 import Home from "@/pages/Home"
 import Login from "@/pages/Login"
 import Register from "@/pages/Register"
@@ -69,7 +70,7 @@ export const routes: RouteObject[] = [
 	{
 		path: "question",
 		name: "question",
-		element: <MainLayout />,
+		element: <QuestionLayout />,
 		children: [
 			{
 				path: "edit/:id",

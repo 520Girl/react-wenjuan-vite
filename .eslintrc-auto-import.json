@@ -130,6 +130,7 @@
     "ARadio": true,
     "ACheckbox": true,
     "ASpin": true,
-    "APagination": true
+    "APagination": true,
+    "ATabs": true
   }
 }

@@ -5,22 +5,20 @@ import useNavPage from "@/hooks/useNavPage"
 import styles from "./QuestionLayout.module.scss"
 
 const QuestionLayout: React.FC = () => {
+	// 加载用户信息
 	const { waitUserData } = useLoadUserData()
+	// 用户没有登录时 跳转到登录页
 	useNavPage(waitUserData)
 	return (
-		<>
-			<div>header</div>
-			<div>
-				container
-				{waitUserData ? (
-					<div style={{ marginTop: "100px", textAlign: "center" }}>
-						<ASpin />
-					</div>
-				) : (
-					<Outlet />
-				)}
-			</div>
-		</>
+		<div style={{ height: "100vh" }}>
+			{waitUserData ? (
+				<div style={{ marginTop: "100px", textAlign: "center" }}>
+					<ASpin />
+				</div>
+			) : (
+				<Outlet />
+			)}
+		</div>
 	)
 }
 export default QuestionLayout

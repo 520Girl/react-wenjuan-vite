@@ -1,28 +1,49 @@
+import { useDispatch } from "react-redux"
 import { getQuestions } from "@/services/question"
-import { useRequest } from "ahooks"
+import { resetComponents } from "@/store/componentsReducer"
 
+// 目的是为了 将请求到的组件信息存储到 redux中
 function useLoadQuestionData() {
 	const { id = "" } = useParams()
-	//! 第一中方式
-	// const [loading,setLoading] = useState(true)
-	// const [questionData,setQuestionData] = useState({})
+	const dispatch = useDispatch()
 
-	// useEffect(() => {
-	// 	async function fun() {
-	// 		const data = await getQuestions(id)
-	// 		setQuestionData(data)
-	// 		setLoading(false)
-	// 	}
-	// 	fun()
-	// }, [id])
+	const { run, data, loading, error } = useRequest(
+		async (id: string) => {
+			if (!id) throw new Error("没有文件id ! ")
+			const data = await getQuestions(id)
+			return data
+		},
+		{
+			manual: true,
+		}
+	)
 
-	//! 第二中方式
-	async function load() {
-		const data = await getQuestions(id)
-		return data
+	//useEffect 用来监听data 发生变化时
+
+	useEffect(() => {
+		if (!data) return
+
+		const { title = "", componentList = [] } = data
+
+		//默认选中id
+		let selectedId = ""
+		if (componentList.length) {
+			selectedId = componentList[0].fe_id
+		}
+		// 将请求到的组件信息存储到 redux中
+		dispatch(resetComponents({ componentList, selectedId }))
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [data])
+
+	//判断当id 发生变化的时候 重新请求数据
+	useEffect(() => {
+		run(id)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [id])
+	return {
+		loading,
+		error,
 	}
-	const { loading, data: questionData, error } = useRequest(load)
-	return { loading, questionData, error }
 }
 
 export default useLoadQuestionData
