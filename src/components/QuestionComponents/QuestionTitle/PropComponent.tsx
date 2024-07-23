@@ -1,7 +1,6 @@
 import React, { FC } from "react"
 import { QuestionTitleProps } from "./interface"
 import { Select } from "antd"
-import Checkbox from "antd/es/checkbox/Checkbox"
 
 const PropComponent: FC = (props: QuestionTitleProps) => {
 	const { title, level, isCenter, onChange, disabled } = props
@@ -39,7 +38,7 @@ const PropComponent: FC = (props: QuestionTitleProps) => {
 				></Select>
 			</AForm.Item>
 			<AForm.Item name="isCenter" label="居中" valuePropName="checked">
-				<Checkbox>居中显示</Checkbox>
+				<ACheckbox>居中显示</ACheckbox>
 			</AForm.Item>
 		</AForm>
 	)

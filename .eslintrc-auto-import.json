@@ -132,6 +132,7 @@
     "ASpin": true,
     "APagination": true,
     "ATabs": true,
-    "ATooltip": true
+    "ATooltip": true,
+    "ASelect": true
   }
 }

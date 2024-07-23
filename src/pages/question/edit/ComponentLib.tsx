@@ -40,7 +40,7 @@ const ComponentLib: FC = () => {
 
 				return (
 					<div key={groupId}>
-						<Title level={3} style={{ fontSize: "16px", marginTop: index > 0 ? "20px" : 0 }}>
+						<Title level={3} style={{ fontSize: "16px", marginTop: index > 0 ? "16px" : 0 }}>
 							{groupName}
 						</Title>
 						<div>{components.map(c => GetComponent(c))}</div>
