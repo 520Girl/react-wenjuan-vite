@@ -17,12 +17,16 @@ module.exports =[
                             fe_id: Random.id(),
                             type:'questionTitle', //组件类型不能重复，前后端一致
                             title:'标题',
+                            isHidden:false,
+                            isLocked:false,
                             props:{title:'个人信息调研',level:1,isCenter:false }
                         },
                         { //Input
                             fe_id: Random.id(),
                             type: 'questionInput',
                             title: '单行文本框',
+                            isHidden: false,
+                            isLocked: false,
                             props: { title: '你的姓名',placeholder:'请输入姓名...' }
 
                         },
@@ -30,6 +34,8 @@ module.exports =[
                             fe_id: Random.id(),
                             type: 'questionInput',
                             title: '单行文本框2',
+                            isHidden: false,
+                            isLocked: false,
                             props: { title: '你的电话', placeholder: '请输入电话...' }
 
                         },

@@ -4,7 +4,7 @@ import { Select } from "antd"
 import Checkbox from "antd/es/checkbox/Checkbox"
 
 const PropComponent: FC = (props: QuestionTitleProps) => {
-	const { title, level, isCenter, onChange } = props
+	const { title, level, isCenter, onChange, disabled } = props
 
 	//监听title,placeHolder 变化
 	const [form] = AForm.useForm()
@@ -23,6 +23,7 @@ const PropComponent: FC = (props: QuestionTitleProps) => {
 			layout="vertical"
 			initialValues={{ title, level, isCenter }}
 			form={form}
+			disabled={disabled}
 			onValuesChange={handleChange}
 		>
 			<AForm.Item name="title" label="标题内容" rules={[{ required: true, message: "请输入标题" }]}>

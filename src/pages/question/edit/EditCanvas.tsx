@@ -39,21 +39,25 @@ const EditCanvas: FC<EditCanvasProps> = ({ loading }) => {
 	}
 	return (
 		<div className={styles.canvas}>
-			{componentList.map(item => {
-				const { fe_id } = item
-				// 拼接classname
-				const wrapperDefaultClassName = styles["component-wrapper"]
-				const selectedClassName = styles.selected
-				const wrapperClass = classnames({
-					[wrapperDefaultClassName]: true,
-					[selectedClassName]: fe_id === selectedId, //fe_id === selectedId
-				})
-				return (
-					<div key={fe_id} className={wrapperClass} onClick={e => handleClickComponent(e, fe_id)}>
-						<div className={styles.component}>{getComponent(item)}</div>
-					</div>
-				)
-			})}
+			{componentList
+				.filter(item => !item.isHidden)
+				.map(item => {
+					const { fe_id, isLocked } = item
+					// 拼接classname
+					const wrapperDefaultClassName = styles["component-wrapper"]
+					const selectedClassName = styles.selected
+					const lockedClass = styles.locked
+					const wrapperClass = classnames({
+						[wrapperDefaultClassName]: true,
+						[lockedClass]: isLocked,
+						[selectedClassName]: fe_id === selectedId, //fe_id === selectedId
+					})
+					return (
+						<div key={fe_id} className={wrapperClass} onClick={e => handleClickComponent(e, fe_id)}>
+							<div className={styles.component}>{getComponent(item)}</div>
+						</div>
+					)
+				})}
 			{/* <div className={styles["component-wrapper"]}>
 				<div className={styles.component}>
 					<QuestionTitle />

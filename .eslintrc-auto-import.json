@@ -131,6 +131,7 @@
     "ACheckbox": true,
     "ASpin": true,
     "APagination": true,
-    "ATabs": true
+    "ATabs": true,
+    "ATooltip": true
   }
 }

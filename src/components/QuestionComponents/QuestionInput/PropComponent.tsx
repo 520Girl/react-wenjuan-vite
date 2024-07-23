@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import { QuestionInputProps } from "./interface"
 
 const PropComponent: FC = (props: QuestionInputProps) => {
-	const { title, placeholder, onChange } = props
+	const { title, placeholder, onChange, disabled } = props
 
 	//监听title,placeHolder 变化
 	const [form] = AForm.useForm()
@@ -21,6 +21,7 @@ const PropComponent: FC = (props: QuestionInputProps) => {
 			layout="vertical"
 			initialValues={{ title, placeholder }}
 			form={form}
+			disabled={disabled}
 			onValuesChange={(changedValues, allValues) => handleChange(changedValues, allValues)}
 		>
 			<AForm.Item name="title" label="标题" rules={[{ required: true, message: "请输入标题" }]}>

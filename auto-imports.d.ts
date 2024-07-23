@@ -22,6 +22,7 @@ declare global {
   const ATable: typeof import('antd')['Table']
   const ATabs: typeof import('antd')['Tabs']
   const ATag: typeof import('antd')['Tag']
+  const ATooltip: typeof import('antd')['Tooltip']
   const ATypography: typeof import('antd')['Typography']
   const Button: typeof import('antd')['Button']
   const Link: typeof import('react-router-dom')['Link']

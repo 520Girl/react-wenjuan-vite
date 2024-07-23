@@ -2,6 +2,7 @@ export type QuestionInputProps = {
 	title?: string
 	placeholder?: string
 	onChange?: (value: QuestionInputProps) => void
+	disabled?: boolean
 }
 
 //默认参数
