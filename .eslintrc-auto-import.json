@@ -133,6 +133,7 @@
     "APagination": true,
     "ATabs": true,
     "ATooltip": true,
-    "ASelect": true
+    "ASelect": true,
+    "APopover": true
   }
 }

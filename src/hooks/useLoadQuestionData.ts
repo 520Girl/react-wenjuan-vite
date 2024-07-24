@@ -23,7 +23,14 @@ function useLoadQuestionData() {
 	useEffect(() => {
 		if (!data) return
 
-		const { title = "", desc = "", js = "", css = "", componentList = [] } = data
+		const {
+			title = "",
+			desc = "",
+			js = "",
+			isPublished = false,
+			css = "",
+			componentList = [],
+		} = data
 
 		//默认选中id
 		let selectedId = ""
@@ -34,7 +41,7 @@ function useLoadQuestionData() {
 		dispatch(resetComponents({ componentList, selectedId, copiedComponent: null }))
 
 		//把pageInfo 存储到 redux store中
-		dispatch(resetPageInfo({ title, js, css, desc }))
+		dispatch(resetPageInfo({ title, js, css, desc, isPublished }))
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data])
 

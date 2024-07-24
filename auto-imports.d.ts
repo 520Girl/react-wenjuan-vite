@@ -15,6 +15,7 @@ declare global {
   const AModal: typeof import('antd')['Modal']
   const APagination: typeof import('antd')['Pagination']
   const APopconfirm: typeof import('antd')['Popconfirm']
+  const APopover: typeof import('antd')['Popover']
   const ARadio: typeof import('antd')['Radio']
   const AResult: typeof import('antd')['Result']
   const ASelect: typeof import('antd')['Select']

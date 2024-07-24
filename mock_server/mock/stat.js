@@ -1,16 +1,17 @@
 const Mock = require('mockjs')
-
+const getStatList = require('../data/getStatList')
 const Random = Mock.Random
 
 module.exports = [
     {
-        url: '/api/test',
+        url: '/api/stat/:questionId',
         method: 'get',
         response: () => {
             return {
-                code: 0,
+                errno: 0,
                 data: {
-                    name: Random.cname()
+                    total: 100,
+                    list: getStatList()
                 }
             }
         }

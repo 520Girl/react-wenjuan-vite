@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux"
 import { changeSelectedId } from "@/store/componentsReducer"
 import useLoadQuestionData from "@/hooks/useLoadQuestionData"
+import useGetPageInfo from "@/hooks/useGetPageInfo"
 import EditCanvas from "./EditCanvas"
 import styles from "./index.module.scss"
 import LeftPanel from "./LeftPanel"
@@ -10,6 +11,8 @@ import EditHeader from "./EditHeader"
 export default function Index() {
 	const { loading, error } = useLoadQuestionData()
 	const dispatch = useDispatch()
+	const { title } = useGetPageInfo()
+	useTitle("编辑问卷" + title)
 
 	//当点击空白 位置时清空selectedId
 	function clearSelectedId() {
