@@ -2,6 +2,7 @@ import React, { FC } from "react"
 import type { TabsProps } from "antd"
 import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons"
 import ComponentLib from "./ComponentLib"
+import Layers from "./Layers"
 
 const items: TabsProps["items"] = [
 	{
@@ -14,7 +15,7 @@ const items: TabsProps["items"] = [
 		key: "layers",
 		label: <span>图层</span>,
 		icon: <BarsOutlined />,
-		children: <div>图层</div>,
+		children: <Layers />,
 	},
 ]
 
