@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux"
+import { ActionCreators as UndoActionCreators } from "redux-undo"
 import {
 	removeSelectedComponent,
 	copySelectedComponent,
@@ -52,6 +53,23 @@ export function useBindCanvasKeyPress() {
 	useKeyPress(["downarrow"], () => {
 		if (!isActiveElement()) return
 		dispatch(selectNextComponent())
+	})
+
+	//撤销
+	useKeyPress(
+		["ctrl+z", "meta+z"],
+		() => {
+			if (!isActiveElement()) return
+			dispatch(UndoActionCreators.undo())
+		},
+		{
+			exactMatch: true, //严格模式，必须只按ctrl+z才触发，否则不会触发
+		}
+	)
+	//重做
+	useKeyPress(["ctrl+shift+z", "meta+shift+z"], () => {
+		if (!isActiveElement()) return
+		dispatch(UndoActionCreators.redo())
 	})
 }
 
