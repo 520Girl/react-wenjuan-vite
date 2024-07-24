@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux"
 import { getQuestions } from "@/services/question"
 import { resetComponents } from "@/store/componentsReducer"
+import { resetPageInfo } from "@/store/pageInfoReducer"
 
 // 目的是为了 将请求到的组件信息存储到 redux中
 function useLoadQuestionData() {
@@ -22,15 +23,18 @@ function useLoadQuestionData() {
 	useEffect(() => {
 		if (!data) return
 
-		const { title = "", componentList = [] } = data
+		const { title = "", desc = "", js = "", css = "", componentList = [] } = data
 
 		//默认选中id
 		let selectedId = ""
 		if (componentList.length) {
 			selectedId = componentList[0].fe_id
 		}
-		// 将请求到的组件信息存储到 redux中
-		dispatch(resetComponents({ componentList, selectedId }))
+		// 将请求到的组件信息componentList  存储到 redux中
+		dispatch(resetComponents({ componentList, selectedId, copiedComponent: null }))
+
+		//把pageInfo 存储到 redux store中
+		dispatch(resetPageInfo({ title, js, css, desc }))
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data])
 

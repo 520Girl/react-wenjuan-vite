@@ -14,7 +14,13 @@ import {
 //判断光标是否在input 这种可focus 上
 function isActiveElement() {
 	const activeElement = document.activeElement
+
+	//未使用dnd-kit 使用  document.activeElement 只会使得当前元素
+	// if (activeElement == document.body) return true
+
+	//使用了后
 	if (activeElement == document.body) return true
+	if (activeElement?.matches('div[role="button"]')) return true //当光标在该属性的元素下页返回true 也就是拖拽元素
 	return false
 }
 

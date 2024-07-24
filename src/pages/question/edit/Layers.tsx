@@ -8,7 +8,12 @@ import {
 	changeComponentTitle,
 	toggleComponentLock,
 	changeComponentHidden,
+	moveComponent,
 } from "@/store/componentsReducer"
+//拖拽组件
+import SortableContainer from "@/components/DragSortable/SortableContainer"
+import SortableItem from "@/components/DragSortable/SortableItem"
+
 import useGetComponentsInfo from "@/hooks/useGetComponentsInfo"
 import styles from "./Layers.module.scss"
 
@@ -56,8 +61,15 @@ const Layers: FC = () => {
 		dispatch(toggleComponentLock({ fe_id }))
 	}
 
+	//拖拽组件需要id 属性,
+	const componentListId = componentList.map(c => ({ ...c, id: c.fe_id }))
+
+	//处理拖拽后的事件
+	function handleDragEnd(newIndex: number, oldIndex: number) {
+		dispatch(moveComponent({ newIndex, oldIndex }))
+	}
 	return (
-		<>
+		<SortableContainer items={componentListId} onDragEnd={handleDragEnd}>
 			{componentList.map(c => {
 				const { fe_id, title, isHidden, isLocked } = c
 
@@ -70,42 +82,44 @@ const Layers: FC = () => {
 				})
 
 				return (
-					<div key={fe_id} className={styles.wrapper}>
-						<div className={titleClassName} onClick={() => handleTitleClick(fe_id)}>
-							{fe_id === changingTitleId && (
-								<AInput
-									value={title}
-									onPressEnter={() => setChangingTitleId("")}
-									onBlur={() => setChangingTitleId("")}
-									onChange={changeSelectedTitle}
-								/>
-							)}
-							{fe_id !== changingTitleId && title}
+					<SortableItem key={fe_id} id={fe_id}>
+						<div className={styles.wrapper}>
+							<div className={titleClassName} onClick={() => handleTitleClick(fe_id)}>
+								{fe_id === changingTitleId && (
+									<AInput
+										value={title}
+										onPressEnter={() => setChangingTitleId("")}
+										onBlur={() => setChangingTitleId("")}
+										onChange={changeSelectedTitle}
+									/>
+								)}
+								{fe_id !== changingTitleId && title}
+							</div>
+							<div className={styles.handler}>
+								<ASpace>
+									<AButton
+										size="small"
+										shape="circle"
+										onClick={() => handleIsHidden(fe_id, !isHidden)}
+										className={!isHidden ? styles.btn : ""}
+										icon={<EyeInvisibleOutlined />}
+										type={isHidden ? "primary" : "text"}
+									></AButton>
+									<AButton
+										size="small"
+										shape="circle"
+										onClick={() => handleIsLocked(fe_id)}
+										icon={<LockOutlined />}
+										className={!isLocked ? styles.btn : ""}
+										type={isLocked ? "primary" : "text"}
+									></AButton>
+								</ASpace>
+							</div>
 						</div>
-						<div className={styles.handler}>
-							<ASpace>
-								<AButton
-									size="small"
-									shape="circle"
-									onClick={() => handleIsHidden(fe_id, !isHidden)}
-									className={isHidden ? styles.btn : ""}
-									icon={<EyeInvisibleOutlined />}
-									type={isHidden ? "primary" : "default"}
-								></AButton>
-								<AButton
-									size="small"
-									shape="circle"
-									onClick={() => handleIsLocked(fe_id)}
-									icon={<LockOutlined />}
-									className={isHidden ? styles.btn : ""}
-									type={isLocked ? "primary" : "default"}
-								></AButton>
-							</ASpace>
-						</div>
-					</div>
+					</SortableItem>
 				)
 			})}
-		</>
+		</SortableContainer>
 	)
 }
 

@@ -12,6 +12,9 @@ module.exports = [
                 data: {
                     id: Random.id(),
                     title: Random.ctitle(),
+                    desc:'描述',
+                    js:'console.log("hello world")',
+                    css:'',
                     componentList: [
                         { //info
                             fe_id: Random.id(),

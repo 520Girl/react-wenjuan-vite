@@ -6,6 +6,8 @@ import {
 	LockOutlined,
 	CopyOutlined,
 	BlockOutlined,
+	UpOutlined,
+	DownOutlined,
 } from "@ant-design/icons"
 import {
 	removeSelectedComponent,
@@ -13,15 +15,22 @@ import {
 	changeComponentHidden,
 	copySelectedComponent,
 	pasteCopiedComponent,
+	moveComponent,
 } from "@/store/componentsReducer"
 import useGetComponentsInfo from "@/hooks/useGetComponentsInfo"
 import useBindCanvasKeyPress from "@/hooks/useBindCanvasKeyPress"
 
 const EditToolbar: FC = () => {
 	const dispatch = useDispatch()
-	const { selectedId, selectedComponent, copiedComponent } = useGetComponentsInfo()
+	const { selectedId, componentList, selectedComponent, copiedComponent } = useGetComponentsInfo()
 	const { isLocked } = selectedComponent || {}
+	//判断是否是最后一个组件 还是 第一个组件
+	const leng = componentList.length
+	const selectedIndex = componentList.findIndex(c => c.fe_id === selectedId)
+	const isFirst = selectedIndex <= 0
+	const isLast = selectedIndex + 1 === leng
 
+	//按键控制
 	useBindCanvasKeyPress()
 
 	//删除
@@ -48,6 +57,15 @@ const EditToolbar: FC = () => {
 	}
 
 	//TODO 上移、下移、撤销、重做
+	function moveUp() {
+		if (isFirst) return
+		dispatch(moveComponent({ oldIndex: selectedIndex, newIndex: selectedIndex - 1 }))
+	}
+	function moveDown() {
+		if (isLast) return
+		dispatch(moveComponent({ oldIndex: selectedIndex, newIndex: selectedIndex + 1 }))
+	}
+
 	return (
 		<ASpace>
 			<ATooltip title="删除">
@@ -74,6 +92,24 @@ const EditToolbar: FC = () => {
 					disabled={!copiedComponent}
 					icon={<BlockOutlined />}
 					onClick={handlePaste}
+				></AButton>
+			</ATooltip>
+			<ATooltip title="上移">
+				<AButton
+					shape="circle"
+					style={{ color: isLast ? "" : "#bfbfbf" }}
+					disabled={isFirst}
+					icon={<UpOutlined />}
+					onClick={moveUp}
+				></AButton>
+			</ATooltip>
+			<ATooltip title="上移">
+				<AButton
+					shape="circle"
+					style={{ color: isFirst ? "" : "#bfbfbf" }}
+					disabled={isLast}
+					icon={<DownOutlined />}
+					onClick={moveDown}
 				></AButton>
 			</ATooltip>
 		</ASpace>

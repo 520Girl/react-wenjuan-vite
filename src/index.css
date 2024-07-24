@@ -14,7 +14,10 @@
 h1{
   margin: 0;
 }
-
+/* dnd-kit 退拽样式边框去除 */
+div[role="button"]{
+  outline: none;
+}
 @media (prefers-color-scheme: light) {
   /* :root {
     color: #213547;
