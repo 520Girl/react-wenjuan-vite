@@ -4,6 +4,7 @@ import StatHeader from "./StatHeader"
 import styles from "./index.module.scss"
 import ComponentList from "./ComponentList"
 import PageStat from "./PageStat"
+import ChartStat from "./ChartStat"
 
 const Index: React.FC = () => {
 	const nav = useNavigate()
@@ -57,7 +58,12 @@ const Index: React.FC = () => {
 						setSelectedComponentType={setSelectedComponentType}
 					/>
 				</div>
-				<div className={styles.right}>right</div>
+				<div className={styles.right}>
+					<ChartStat
+						selectedComponentId={selectedComponentId}
+						selectedComponentType={selectedComponentType}
+					/>
+				</div>
 			</>
 		)
 	}

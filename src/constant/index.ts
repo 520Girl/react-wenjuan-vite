@@ -17,3 +17,6 @@ export const TOKEN_KEY = "TOKEN_KEY"
 
 //统计页面 pageSize
 export const STAT_PAGE_SIZE = 10
+
+//统计饼状图页面的颜色
+export const STAT_COLORS = ["#FF2D2D", "#BE77FF", "#2894FF", "#00EC00", "#EAC100", "#FF9D6F"]

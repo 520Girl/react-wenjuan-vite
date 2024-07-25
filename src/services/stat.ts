@@ -19,3 +19,13 @@ export const getQuestionStatList = async (
 	const data = (await axios.get(url, { params: opt })) as ResDateType
 	return data
 }
+
+//获取组件汇总统计
+export const getComponentStat = async (
+	questionId: string,
+	componentId: string
+): Promise<ResDateType> => {
+	const url = `/stat/${questionId}/${componentId}`
+	const data = (await axios.get(url)) as ResDateType
+	return data
+}

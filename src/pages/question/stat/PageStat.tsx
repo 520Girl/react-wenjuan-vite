@@ -54,6 +54,7 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
 		}
 	})
 
+	//表格数据
 	const dataSource = list.map((item: any) => ({ ...item, key: item._id }))
 	const TableElem = (
 		<>
