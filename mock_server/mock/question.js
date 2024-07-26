@@ -16,6 +16,7 @@ module.exports = [
                     desc:'描述',
                     js:'console.log("hello world")',
                     css:'',
+                    isDeleted: false,
                     isPublished: true,
                     componentList: getComponentList()
                 }
