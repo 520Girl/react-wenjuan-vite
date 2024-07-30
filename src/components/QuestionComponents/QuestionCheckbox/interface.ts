@@ -28,5 +28,5 @@ export const QuestionCheckboxDefaultProps: QuestionCheckboxProps = {
 //统计表
 
 export type QuestionCheckboxStatPropsType = {
-	stat: Array<{ name: string; count: string }>
+	stat: Array<{ name: string; count: number }>
 }

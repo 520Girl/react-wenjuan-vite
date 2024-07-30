@@ -13,7 +13,19 @@ function GetComponent(component: ComponentsConfType) {
 	const dispatch = useDispatch()
 
 	//!2.点击组件插入画布中，当前选中的画布的后一项
-	const handleClick = () => {
+	// const handleClick = () => {
+	// 	dispatch(
+	// 		addComponent({
+	// 			fe_id: nanoid(),
+	// 			type,
+	// 			title,
+	// 			props: defaultProps,
+	// 		})
+	// 	)
+	// }
+
+	//!2.1 优化
+	const handleClick = useCallback(() => {
 		dispatch(
 			addComponent({
 				fe_id: nanoid(),
@@ -22,7 +34,7 @@ function GetComponent(component: ComponentsConfType) {
 				props: defaultProps,
 			})
 		)
-	}
+	}, [type, title, defaultProps, dispatch])
 	return (
 		<div key={type} className={styles.wrapper} onClick={handleClick}>
 			<div className={styles.component}>

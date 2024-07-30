@@ -26,7 +26,7 @@ const pieChatStatDome: React.FC = () => {
 						label={i => `${i.name}: ${i.value}`}
 					>
 						{data01.map((i, index) => {
-							return <Cell key={index} fill={STAT_COLORS[index]} />
+							return <Cell key={i.name} fill={STAT_COLORS[index]} />
 						})}
 					</Pie>
 					<Tooltip />

@@ -1,4 +1,3 @@
-import React from "react"
 import { FormOutlined } from "@ant-design/icons"
 import styles from "@/assets/styles/Logo.module.scss"
 import useGetUserInfo from "@/hooks/useGetUserInfo"
