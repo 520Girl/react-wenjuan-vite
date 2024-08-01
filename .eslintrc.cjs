@@ -9,6 +9,14 @@ module.exports = {
     "./.eslintrc-auto-import.json",
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs','mock_server'],
+  overrides: [ // 一个文件只能导出一个组件
+    {
+      files: ['src/router/router.tsx'],
+      rules: {
+        'react-refresh/only-export-components': 'off',
+      },
+    },
+  ],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
   rules: { //运行any 属性

@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import { FC } from "react"
 import { nanoid } from "nanoid"
 import { useDispatch } from "react-redux"
 import { componentGroup } from "@/components/QuestionComponents"

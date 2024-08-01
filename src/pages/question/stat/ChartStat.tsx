@@ -1,6 +1,6 @@
-import React, { FC } from "react"
+import { FC } from "react"
 import { getComponentStat } from "@/services/stat"
-import BarChartStat from "./BarChartStatDome"
+// import BarChartStat from "./BarChartStatDome"
 import { getComponentConfByType } from "@/components/QuestionComponents"
 
 type PropsType = {

@@ -1,3 +1,4 @@
+import { lazy } from "react"
 import type { RouteObject } from "react-router-dom"
 import MainLayout from "@/layout/Main-Layout"
 import ManageLayout from "@/layout/Manage-Layout"
@@ -9,8 +10,11 @@ import NotFount from "@/pages/NotFount"
 import List from "@/pages/manage/List"
 import Star from "@/pages/manage/Star"
 import Trash from "@/pages/manage/Trash"
-import Edit from "@/pages/question/edit"
-import Stat from "@/pages/question/stat"
+// import Edit from "@/pages/question/edit"
+// import Stat from "@/pages/question/stat"
+
+const Edit = lazy(() => import(/* vendor chunk name: "Edit" */ "@/pages/question/edit"))
+const Stat = lazy(() => import(/* vendor chunk name: "Stat" */ "@/pages/question/stat"))
 
 declare module "react-router" {
 	interface IndexRouteObject {

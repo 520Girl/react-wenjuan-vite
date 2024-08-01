@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import { FC } from "react"
 import type { TabsProps } from "antd"
 import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons"
 import ComponentLib from "./ComponentLib"

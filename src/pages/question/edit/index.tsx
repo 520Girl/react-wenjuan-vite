@@ -9,7 +9,7 @@ import RightPanel from "./RightPanel"
 import EditHeader from "./EditHeader"
 
 export default function Index() {
-	const { loading, error } = useLoadQuestionData()
+	const { loading } = useLoadQuestionData()
 	const dispatch = useDispatch()
 	const { title } = useGetPageInfo()
 	useTitle("编辑问卷" + title)

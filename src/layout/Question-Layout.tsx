@@ -2,7 +2,7 @@ import React from "react"
 import { Outlet } from "react-router-dom"
 import useLoadUserData from "@/hooks/useLoadUserData"
 import useNavPage from "@/hooks/useNavPage"
-import styles from "./QuestionLayout.module.scss"
+// import styles from "./QuestionLayout.module.scss"
 
 const QuestionLayout: React.FC = () => {
 	// 加载用户信息

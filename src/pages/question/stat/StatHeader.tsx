@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import { FC } from "react"
 import { LeftOutlined, CopyOutlined, QrcodeOutlined } from "@ant-design/icons"
 import useGetPageInfo from "@/hooks/useGetPageInfo"
 import { message, type InputRef } from "antd"

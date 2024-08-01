@@ -67,7 +67,6 @@
     "useMemoizedFn": true,
     "useMount": true,
     "useMouse": true,
-    "useMutationObserver": true,
     "useNavigate": true,
     "useNavigationType": true,
     "useNetwork": true,
@@ -134,6 +133,7 @@
     "ATabs": true,
     "ATooltip": true,
     "ASelect": true,
-    "APopover": true
+    "APopover": true,
+    "useMutationObserver": true
   }
 }
